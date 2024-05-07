@@ -1,11 +1,8 @@
 package org.sealord.http;
 
-import lombok.Getter;
 import org.apache.hc.core5.http.HttpEntity;
-import org.apache.hc.core5.http.HttpStreamResetException;
 import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.entity.NullEntity;
-import org.sealord.util.JacksonUtils;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -16,7 +13,6 @@ import java.util.Objects;
  * @author liu xw
  * @date 2024 04-19
  */
-@Getter
 public class ByteEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -53,5 +49,13 @@ public class ByteEntity implements Serializable {
                 throw new IllegalArgumentException("read entity error: " + e.getMessage(), e);
             }
         }
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public byte[] getResponseBytes() {
+        return responseBytes;
     }
 }

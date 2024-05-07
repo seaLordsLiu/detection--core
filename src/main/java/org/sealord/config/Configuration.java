@@ -1,10 +1,5 @@
 package org.sealord.config;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-
-import java.util.Collections;
 
 /**
  * 客户端配置中心
@@ -12,7 +7,6 @@ import java.util.Collections;
  * @date 2024 04-16
  */
 
-@Data
 public class Configuration {
 
     /**
@@ -30,4 +24,28 @@ public class Configuration {
      */
     private TroubleConfig trouble = new TroubleConfig();
 
+
+    public String getApplicationName() {
+        return applicationName;
+    }
+
+    public void setApplicationName(String applicationName) {
+        this.applicationName = applicationName;
+    }
+
+    public String getEvnLabel() {
+        return evnLabel;
+    }
+
+    public void setEvnLabel(String evnLabel) {
+        this.evnLabel = evnLabel;
+    }
+
+    public TroubleConfig getTrouble() {
+        return trouble;
+    }
+
+    public void setTrouble(TroubleConfig trouble) {
+        this.trouble = trouble;
+    }
 }

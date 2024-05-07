@@ -1,6 +1,5 @@
 package org.sealord.http;
 
-import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
 import org.apache.hc.client5.http.config.RequestConfig;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
@@ -11,6 +10,9 @@ import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.pool.PoolStats;
 import org.apache.hc.core5.util.TimeValue;
 import org.apache.hc.core5.util.Timeout;
+import org.sealord.client.trouble.TroubleClientTemplate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -23,8 +25,10 @@ import java.util.concurrent.TimeUnit;
  * @author liu xw
  * @date 2024 04-10
  */
-@Slf4j
 public class DefaultHttpClient {
+
+    private static final Logger log = LoggerFactory.getLogger(DefaultHttpClient.class);
+
 
     /**
      * 客户端信息

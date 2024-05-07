@@ -1,7 +1,5 @@
 package org.sealord.config;
 
-import lombok.Getter;
-import lombok.Setter;
 import org.sealord.http.HttpConfig;
 
 import java.time.Instant;
@@ -14,8 +12,6 @@ import java.util.List;
  * @author liu xw
  * @date 2024 04-12
  */
-@Getter
-@Setter
 public class TroubleConfig {
 
     /**
@@ -40,4 +36,36 @@ public class TroubleConfig {
      */
     private List<String> ignoreError = new ArrayList<>();
 
+
+    public Boolean getAsync() {
+        return async;
+    }
+
+    public void setAsync(Boolean async) {
+        this.async = async;
+    }
+
+    public int getCorePoolSize() {
+        return corePoolSize;
+    }
+
+    public void setCorePoolSize(int corePoolSize) {
+        this.corePoolSize = corePoolSize;
+    }
+
+    public HttpConfig getHttp() {
+        return http;
+    }
+
+    public void setHttp(HttpConfig http) {
+        this.http = http;
+    }
+
+    public List<String> getIgnoreError() {
+        return ignoreError;
+    }
+
+    public void setIgnoreError(List<String> ignoreError) {
+        this.ignoreError = ignoreError;
+    }
 }

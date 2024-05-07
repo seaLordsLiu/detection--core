@@ -1,8 +1,5 @@
 package org.sealord.client.trouble.handler;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 import org.sealord.RestTemplate;
 import org.sealord.client.HEADER;
 import org.sealord.client.URL;
@@ -29,7 +26,6 @@ public class HttpTroubleHandler implements TroubleHandler {
     /**
      * 请求客户端
      */
-    @Getter
     private final RestTemplate restTemplate;
 
 
@@ -60,13 +56,13 @@ public class HttpTroubleHandler implements TroubleHandler {
         return header;
     }
 
+    public RestTemplate getRestTemplate() {
+        return restTemplate;
+    }
 
     /**
      * 参数类信息
      */
-    @ToString
-    @Getter
-    @Setter
     private static class ReportTroubleApiDTO {
         /**
          * 故障代表（异常类信息）
@@ -143,6 +139,79 @@ public class HttpTroubleHandler implements TroubleHandler {
             // 自定义参数
             apiDTO.setCustomData(JacksonUtils.toJson(tc.getCustomData()));
             return apiDTO;
+        }
+
+
+        public String getTrouble() {
+            return trouble;
+        }
+
+        public void setTrouble(String trouble) {
+            this.trouble = trouble;
+        }
+
+        public String getMessage() {
+            return message;
+        }
+
+        public void setMessage(String message) {
+            this.message = message;
+        }
+
+        public String getInformation() {
+            return information;
+        }
+
+        public void setInformation(String information) {
+            this.information = information;
+        }
+
+        public Long getReportTime() {
+            return reportTime;
+        }
+
+        public void setReportTime(Long reportTime) {
+            this.reportTime = reportTime;
+        }
+
+        public String getCustomData() {
+            return customData;
+        }
+
+        public void setCustomData(String customData) {
+            this.customData = customData;
+        }
+
+        public String getUrl() {
+            return url;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
+        }
+
+        public String getMethod() {
+            return method;
+        }
+
+        public void setMethod(String method) {
+            this.method = method;
+        }
+
+        public String getUrlParam() {
+            return urlParam;
+        }
+
+        public void setUrlParam(String urlParam) {
+            this.urlParam = urlParam;
+        }
+
+        public String getParam() {
+            return param;
+        }
+
+        public void setParam(String param) {
+            this.param = param;
         }
     }
 }

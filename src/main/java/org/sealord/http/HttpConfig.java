@@ -1,16 +1,11 @@
 package org.sealord.http;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.io.Serializable;
 
 /**
  * @author liu xw
  * @date 2024 04-29
  */
-@Getter
-@Setter
 public class HttpConfig implements Serializable {
 
     /**
@@ -47,4 +42,53 @@ public class HttpConfig implements Serializable {
      * 连接存活时长：秒
      */
     private long connectionTimeToLive = 60;
+
+
+    public int getConnectionRequestTimeout() {
+        return connectionRequestTimeout;
+    }
+
+    public void setConnectionRequestTimeout(int connectionRequestTimeout) {
+        this.connectionRequestTimeout = connectionRequestTimeout;
+    }
+
+    public int getConnectTimeout() {
+        return connectTimeout;
+    }
+
+    public void setConnectTimeout(int connectTimeout) {
+        this.connectTimeout = connectTimeout;
+    }
+
+    public int getSocketTimeout() {
+        return socketTimeout;
+    }
+
+    public void setSocketTimeout(int socketTimeout) {
+        this.socketTimeout = socketTimeout;
+    }
+
+    public int getMaxTotal() {
+        return maxTotal;
+    }
+
+    public void setMaxTotal(int maxTotal) {
+        this.maxTotal = maxTotal;
+    }
+
+    public int getMaxPreRoute() {
+        return maxPreRoute;
+    }
+
+    public void setMaxPreRoute(int maxPreRoute) {
+        this.maxPreRoute = maxPreRoute;
+    }
+
+    public long getConnectionTimeToLive() {
+        return connectionTimeToLive;
+    }
+
+    public void setConnectionTimeToLive(long connectionTimeToLive) {
+        this.connectionTimeToLive = connectionTimeToLive;
+    }
 }

@@ -1,8 +1,5 @@
 package org.sealord.client.trouble;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.hc.core5.http.ContentType;
 import org.apache.hc.core5.http.HttpHeaders;
 import org.apache.hc.core5.http.HttpStatus;
@@ -13,6 +10,8 @@ import org.sealord.config.TroubleConfig;
 import org.sealord.http.ByteEntity;
 import org.sealord.http.wrapper.PostBodyRequestWrapper;
 import org.sealord.util.JacksonUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -28,32 +27,28 @@ import java.util.function.Consumer;
  * @author liu xw
  * @date 2024 04-12
  */
-@Slf4j
 public class TroubleClientTemplate implements TroubleClient {
+
+    private static final Logger log = LoggerFactory.getLogger(TroubleClientTemplate.class);
 
     /**
      * 配置中心
      */
-    @Getter
     private final Configuration configuration;
 
     /**
      * 处理器
      */
-    @Getter
     private final TroubleHandler troubleHandler;
 
     /**
      * 异步执行器
      */
-    @Getter
     private final ThreadPoolExecutor tpe;
 
     /**
      * 自定义消费者, 用于自定义处理
      */
-    @Getter
-    @Setter
     private List<Consumer<Map<String, Object>>> customCons;
 
     public TroubleClientTemplate(Configuration configuration) {
@@ -237,5 +232,26 @@ public class TroubleClientTemplate implements TroubleClient {
         }
 
         return body;
+    }
+
+
+    public Configuration getConfiguration() {
+        return configuration;
+    }
+
+    public TroubleHandler getTroubleHandler() {
+        return troubleHandler;
+    }
+
+    public ThreadPoolExecutor getTpe() {
+        return tpe;
+    }
+
+    public List<Consumer<Map<String, Object>>> getCustomCons() {
+        return customCons;
+    }
+
+    public void setCustomCons(List<Consumer<Map<String, Object>>> customCons) {
+        this.customCons = customCons;
     }
 }

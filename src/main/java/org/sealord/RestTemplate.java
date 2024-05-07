@@ -1,6 +1,5 @@
 package org.sealord;
 
-import lombok.RequiredArgsConstructor;
 import org.apache.hc.core5.http.*;
 import org.apache.hc.core5.http.io.entity.NullEntity;
 import org.apache.hc.core5.http.message.BasicHeader;
@@ -13,28 +12,25 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * 默认客户端实现
  * @author liu xw
  * @date 2024 04-10
  */
-@RequiredArgsConstructor
 public class RestTemplate {
 
     private final Logger log = LoggerFactory.getLogger(RestTemplate.class);
-
 
     /**
      * 执行客户端
      */
     private final DefaultHttpClient HTTP_CLIENT;
 
-    /**
-     * 获取
-     */
-    public static RestTemplate of(HttpConfig config){
-        return new RestTemplate(new DefaultHttpClient(config));
+    public RestTemplate(DefaultHttpClient HTTP_CLIENT) {
+        this.HTTP_CLIENT = HTTP_CLIENT;
     }
 
     /**
@@ -89,6 +85,12 @@ public class RestTemplate {
             log.error("execute url: [{}]. method: [{}]. httpStatus: {}. msg: {}", url, method, HttpSt, e.getMessage(), e);
             return new ByteEntity(HttpSt, NullEntity.INSTANCE);
         }
+    }
 
+    /**
+     * 获取
+     */
+    public static RestTemplate of(HttpConfig config){
+        return new RestTemplate(new DefaultHttpClient(config));
     }
 }
