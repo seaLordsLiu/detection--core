@@ -3,14 +3,11 @@ package org.sealord.client.trouble.handler;
 import org.sealord.RestTemplate;
 import org.sealord.client.HEADER;
 import org.sealord.client.URL;
-import org.sealord.client.trouble.TroubleContent;
-import org.sealord.config.Configuration;
+import org.sealord.client.trouble.ErrorContent;
 import org.sealord.http.ByteEntity;
 import org.sealord.http.HttpConfig;
 import org.sealord.util.JacksonUtils;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.time.Instant;
 import java.util.HashMap;
 import java.util.Map;
@@ -34,9 +31,11 @@ public class HttpTroubleHandler implements TroubleHandler {
     }
 
     @Override
-    public ByteEntity handler(TroubleContent content){
+    public ByteEntity handler(ErrorContent content){
         // 构造请求头信息
-        Map<String, Object> header = buildHeader(content.getConfiguration());
+        Map<String, Object> header = new HashMap<>();
+        header.put(HEADER.X_CLIENT_NAME, content.getApplicationName());
+        header.put(HEADER.X_ENV_LABEL, content.getEvnLabel());
 
         // 构造请求体信息
         ReportTroubleApiDTO body = ReportTroubleApiDTO.of(content);
@@ -45,23 +44,9 @@ public class HttpTroubleHandler implements TroubleHandler {
         return restTemplate.postJson(URL.Trouble.RECEIVE, header, body);
     }
 
-    /**
-     * 构造请求头信息
-     * @return 结果
-     */
-    private Map<String, Object> buildHeader(Configuration configuration){
-        Map<String, Object> header = new HashMap<>();
-        header.put(HEADER.X_CLIENT_NAME, configuration.getApplicationName());
-        header.put(HEADER.X_ENV_LABEL, configuration.getEvnLabel());
-        return header;
-    }
-
-    public RestTemplate getRestTemplate() {
-        return restTemplate;
-    }
 
     /**
-     * 参数类信息
+     * 请求 API 信息
      */
     private static class ReportTroubleApiDTO {
         /**
@@ -113,20 +98,15 @@ public class HttpTroubleHandler implements TroubleHandler {
 
 
 
-        public static ReportTroubleApiDTO of(TroubleContent tc){
+        public static ReportTroubleApiDTO of(ErrorContent tc){
             ReportTroubleApiDTO apiDTO = new ReportTroubleApiDTO();
 
-            // 异常数据处理
-            Throwable throwable = tc.getThrowable();
-
             // 故障代表（异常类信息）
-            apiDTO.setTrouble(throwable.getClass().getName());
+            apiDTO.setTrouble(tc.getTrouble());
             // 故障内容（异常信息）
-            apiDTO.setMessage(throwable.getMessage());
-            StringWriter stringWriter = new StringWriter();
-            throwable.printStackTrace(new PrintWriter(stringWriter));
+            apiDTO.setMessage(tc.getMessage());
             // 故障信息（异常栈堆）
-            apiDTO.setInformation(stringWriter.toString());
+            apiDTO.setInformation(tc.getInformation());
             // 上报时间
             apiDTO.setReportTime(Instant.now().getEpochSecond());
 

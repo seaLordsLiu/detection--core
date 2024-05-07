@@ -2,9 +2,7 @@ package org.sealord.config;
 
 import org.sealord.http.HttpConfig;
 
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -32,9 +30,8 @@ public class TroubleConfig {
 
     /**
      * 排除的异常信息
-     * com.qzh.ServiceException
      */
-    private List<String> ignoreError = new ArrayList<>();
+    private List<Class<? extends Throwable>> ignoreError = new ArrayList<>();
 
 
     public Boolean getAsync() {
@@ -61,11 +58,11 @@ public class TroubleConfig {
         this.http = http;
     }
 
-    public List<String> getIgnoreError() {
+    public List<Class<? extends Throwable>> getIgnoreError() {
         return ignoreError;
     }
 
-    public void setIgnoreError(List<String> ignoreError) {
+    public void setIgnoreError(List<Class<? extends Throwable>> ignoreError) {
         this.ignoreError = ignoreError;
     }
 }

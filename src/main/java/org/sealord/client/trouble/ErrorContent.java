@@ -1,35 +1,50 @@
 package org.sealord.client.trouble;
 
-import org.sealord.config.Configuration;
-
 import java.time.LocalDateTime;
 import java.util.Map;
 
 /**
+ * 内容信息
  * @author liu xw
  * @date 2024 04-24
  */
-public class TroubleContent {
+public class ErrorContent {
 
     /**
-     * 配置中心
+     * 注册应用的名称
      */
-    private Configuration configuration;
+    private String applicationName;
 
     /**
-     * 异常信息
+     * 环境信息
      */
-    private Throwable throwable;
+    private String evnLabel;
 
     /**
      * 异常时间
      */
     private LocalDateTime troubleTime;
 
+
+
+
     /**
-     * 原数据信息
+     * 故障代表（异常类信息）
      */
-    private Map<String, Object> customData;
+    private String trouble;
+
+    /**
+     * 故障内容（异常信息）
+     */
+    private String message;
+
+    /**
+     * 故障信息（异常栈堆）
+     */
+    private String information;
+
+
+
 
     /**
      * 请求URL地址信息 - 针对WEB请求
@@ -54,20 +69,30 @@ public class TroubleContent {
     private String param;
 
 
-    public Configuration getConfiguration() {
-        return configuration;
+
+
+
+    /**
+     * 原数据信息
+     */
+    private Map<String, Object> customData;
+
+
+
+    public String getApplicationName() {
+        return applicationName;
     }
 
-    public void setConfiguration(Configuration configuration) {
-        this.configuration = configuration;
+    public void setApplicationName(String applicationName) {
+        this.applicationName = applicationName;
     }
 
-    public Throwable getThrowable() {
-        return throwable;
+    public String getEvnLabel() {
+        return evnLabel;
     }
 
-    public void setThrowable(Throwable throwable) {
-        this.throwable = throwable;
+    public void setEvnLabel(String evnLabel) {
+        this.evnLabel = evnLabel;
     }
 
     public LocalDateTime getTroubleTime() {
@@ -78,12 +103,28 @@ public class TroubleContent {
         this.troubleTime = troubleTime;
     }
 
-    public Map<String, Object> getCustomData() {
-        return customData;
+    public String getTrouble() {
+        return trouble;
     }
 
-    public void setCustomData(Map<String, Object> customData) {
-        this.customData = customData;
+    public void setTrouble(String trouble) {
+        this.trouble = trouble;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public String getInformation() {
+        return information;
+    }
+
+    public void setInformation(String information) {
+        this.information = information;
     }
 
     public String getUrl() {
@@ -116,5 +157,13 @@ public class TroubleContent {
 
     public void setParam(String param) {
         this.param = param;
+    }
+
+    public Map<String, Object> getCustomData() {
+        return customData;
+    }
+
+    public void setCustomData(Map<String, Object> customData) {
+        this.customData = customData;
     }
 }
