@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author liu xw
- * @date 2024 04-29
+ * @since 2024 04-29
  */
 public class HttpConfig implements Serializable {
 

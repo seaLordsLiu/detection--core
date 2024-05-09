@@ -6,7 +6,7 @@ import java.io.IOException;
 /**
  * 故障上报客户端
  * @author liu xw
- * @date 2024 04-11
+ * @since 2024 04-11
  */
 public interface TroubleClient {
 

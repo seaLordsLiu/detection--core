@@ -6,7 +6,7 @@ import java.util.Map;
 /**
  * 内容信息
  * @author liu xw
- * @date 2024 04-24
+ * @since 2024 04-24
  */
 public class ErrorContent {
 

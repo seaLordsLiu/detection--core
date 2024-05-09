@@ -8,7 +8,7 @@ import org.apache.hc.client5.http.classic.methods.HttpUriRequestBase;
  * 集成方法
  * 用于构造请求方法
  * @author liu xw
- * @date 2024 04-10
+ * @since 2024 04-10
  */
 public class HttpMethod {
 

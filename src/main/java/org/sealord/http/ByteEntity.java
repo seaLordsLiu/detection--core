@@ -11,7 +11,7 @@ import java.util.Objects;
 /**
  * 记录服务端返回的结果信息
  * @author liu xw
- * @date 2024 04-19
+ * @since 2024 04-19
  */
 public class ByteEntity implements Serializable {
 

@@ -6,7 +6,7 @@ import org.sealord.http.ByteEntity;
 /**
  * 处理类
  * @author liu xw
- * @date 2024 04-24
+ * @since 2024 04-24
  */
 public interface TroubleHandler {
 

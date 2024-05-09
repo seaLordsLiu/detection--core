@@ -4,7 +4,7 @@ package org.sealord.config;
 /**
  * 客户端配置中心
  * @author liu xw
- * @date 2024 04-16
+ * @since 2024 04-16
  */
 
 public class Configuration {

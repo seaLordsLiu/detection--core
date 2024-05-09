@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
  * 默认的消息处理工具
  * 对 ContentCachingRequestWrapper 的扩展
  * @author liu xw
- * @date 2024 05-07
+ * @since 2024 05-07
  */
 public class DefaultContentCachingRequestWrapper extends ContentCachingRequestWrapper implements PostBodyRequestWrapper{
 

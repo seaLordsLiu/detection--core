@@ -3,7 +3,7 @@ package org.sealord.client;
 /**
  * 配置URL请求地址信息
  * @author liu xw
- * @date 2024 04-11
+ * @since 2024 04-11
  */
 public class URL {
 

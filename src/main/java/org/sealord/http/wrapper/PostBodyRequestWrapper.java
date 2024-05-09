@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
  * 获取 post 的 body 内容信息
  * 当 request type is json
  * @author liu xw
- * @date 2024 05-07
+ * @since 2024 05-07
  */
 public interface PostBodyRequestWrapper extends HttpServletRequest {
 

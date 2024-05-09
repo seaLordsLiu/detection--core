@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * 请求实体
  * @author liu xw
- * @date 2024 04-10
+ * @since 2024 04-10
  */
 public class RequestHttpEntity {
 

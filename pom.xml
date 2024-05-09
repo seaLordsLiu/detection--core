@@ -7,6 +7,8 @@
     <groupId>org.sealord</groupId>
     <artifactId>detection-core</artifactId>
     <version>0.1.0</version>
+    <url>https://github.com/seaLordsLiu/detection--core</url>
+    <description>一个不完美的服务</description>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -68,46 +70,53 @@
         </dependency>
     </dependencies>
 
-<!--    <url>https://github.com/andanyoung</url>-->
-<!--    &lt;!&ndash; 开源签名证书 &ndash;&gt;-->
-<!--    <licenses>-->
-<!--        <license>-->
-<!--            <name>The Apache Software License, Version 2.0</name>-->
-<!--            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>-->
-<!--            <distribution>repo</distribution>-->
-<!--        </license>-->
-<!--    </licenses>-->
-<!--    &lt;!&ndash; 仓库信息 &ndash;&gt;-->
-<!--    <scm>-->
-<!--        <connection>scm:git@github.com:admin4j/common-http.git</connection>-->
-<!--        <developerConnection>scm:git@github.com:admin4j/common-http.git-->
-<!--        </developerConnection>-->
-<!--        <url>https://github.com/admin4j/common-http</url>-->
-<!--    </scm>-->
-    <!-- 开发人员信息 -->
-<!--    <developers>-->
-<!--        <developer>-->
-<!--            <name>sealord</name>-->
-<!--            <email>sealord@qq.com</email>-->
-<!--            <organization>https://github.com/andanyoung</organization>-->
-<!--            <timezone>+8</timezone>-->
-<!--        </developer>-->
-<!--    </developers>-->
+    <!-- 许可证类型，一般与项目仓库保持一致 -->
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
+    <!-- 开发者信息 -->
+    <developers>
+        <developer>
+            <name>sealord</name>
+            <email>sealords@163.com</email>
+        </developer>
+    </developers>
 
-    <!-- maven中央仓库会要求我们在上传jar到同时，必须同步发布对应到Javadoc、source、asc(利用gpg生成到校验)，所以需要在maven中添加以下构建插件 -->
     <build>
         <plugins>
+            <!-- 打包源码 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.1</version>
                 <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
                     <source>${maven.compiler.source}</source>
                     <target>${maven.compiler.target}</target>
+                    <showWarnings>true</showWarnings>
                 </configuration>
             </plugin>
-            <!-- 生成java source.jar -->
+
+            <!-- gpg认证 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <!-- 生成 Javadoc 和 Source jar 文件，您必须配置 Javadoc 和 source Maven 插件 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
@@ -121,65 +130,38 @@
                     </execution>
                 </executions>
             </plugin>
-
-<!--            <plugin>-->
-<!--                <groupId>org.sonatype.plugins</groupId>-->
-<!--                <artifactId>nexus-staging-maven-plugin</artifactId>-->
-<!--                <version>1.6.13</version>-->
-<!--                <extensions>true</extensions>-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
 <!--                <configuration>-->
-<!--                    <serverId>ossrh</serverId>-->
-<!--                    <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>-->
-<!--                    <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
-<!--                </configuration>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-gpg-plugin</artifactId>-->
-<!--                <version>3.0.1</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>sign-artifacts</id>-->
-<!--                        <phase>verify</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>sign</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.apache.maven.plugins</groupId>-->
-<!--                <artifactId>maven-javadoc-plugin</artifactId>-->
-<!--                <version>3.4.1</version>-->
-<!--                <configuration>-->
+<!--                    &lt;!&ndash; 禁用doclint，不严格检查 &ndash;&gt;-->
+<!--                    <additionalJOption>-Xdoclint:none</additionalJOption>-->
+<!--                    &lt;!&ndash; 文档解析出错时仍然继续 &ndash;&gt;-->
 <!--                    <failOnError>false</failOnError>-->
 <!--                </configuration>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <id>attach-javadocs</id>-->
-<!--                        <goals>-->
-<!--                            <goal>jar</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
+            </plugin>
         </plugins>
     </build>
 
-    <!-- 构件执行deploy命令时，发布到的目的库,根据版本号是否以-SNAPSHOT结束来判断 -->
+    <!--  使用的是 Maven deploy 插件（这是默认行为），则需要添加一个完整的 distributionManagement 部分。  -->
     <distributionManagement>
-        <!-- 项目正式库 -->
-        <repository>
-            <id>nexus</id>
-            <name>nexus-releases</name>
-            <url>http://101.34.206.121:13801/repository/maven-releases/</url>
-        </repository>
-
-        <!-- 代码快照版本库（版本号以SNAPSHOT结尾的构件） -->
         <snapshotRepository>
-            <id>nexus</id>
-            <name>nexus-snapshots</name>
-            <url>http://101.34.206.121:13801/repository/maven-snapshots/</url>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
         </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
     </distributionManagement>
+
 </project>

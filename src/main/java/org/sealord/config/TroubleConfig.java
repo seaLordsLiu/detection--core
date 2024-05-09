@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * 故障上报配置
  * @author liu xw
- * @date 2024 04-12
+ * @since 2024 04-12
  */
 public class TroubleConfig {
 

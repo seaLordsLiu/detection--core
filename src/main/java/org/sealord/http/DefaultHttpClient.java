@@ -23,7 +23,7 @@ import java.util.concurrent.TimeUnit;
 /**
  * 默认实现的客户端
  * @author liu xw
- * @date 2024 04-10
+ * @since 2024 04-10
  */
 public class DefaultHttpClient {
 

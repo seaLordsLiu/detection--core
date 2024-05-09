@@ -3,7 +3,7 @@ package org.sealord.client;
 /**
  * 请求头参数常量信息
  * @author liu xw
- * @date 2024 04-15
+ * @since 2024 04-15
  */
 public class HEADER {
 
