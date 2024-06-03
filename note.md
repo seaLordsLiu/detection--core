@@ -1,4 +1,9 @@
-## 开发记录
+## 设计思路
+
+
+1. TroubleManage 接收错误信息
+2. 通过 TroubleContentGenerator 构造 TroubleContent 核心内容
+3. 委托 TroubleDelegate 进行处理
 
 
 ### 0.1.0

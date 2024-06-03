@@ -1,11 +1,11 @@
-package org.sealord.client;
+package org.sealord.remote;
 
 /**
- * 请求头参数常量信息
+ * 远程 请求头信息
  * @author liu xw
- * @since 2024 04-15
+ * @since 2024 05-24
  */
-public class HEADER {
+public class Header {
 
     /**
      * 自定义的客户端名称信息

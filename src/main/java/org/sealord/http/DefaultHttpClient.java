@@ -10,7 +10,6 @@ import org.apache.hc.core5.http.io.HttpClientResponseHandler;
 import org.apache.hc.core5.pool.PoolStats;
 import org.apache.hc.core5.util.TimeValue;
 import org.apache.hc.core5.util.Timeout;
-import org.sealord.client.trouble.TroubleClientTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,12 +28,15 @@ public class DefaultHttpClient {
 
     private static final Logger log = LoggerFactory.getLogger(DefaultHttpClient.class);
 
-
     /**
      * 客户端信息
      */
     private final CloseableHttpClient httpClient;
 
+    /**
+     * 初始化客http客户端
+     * @param config 配置信息
+     */
     public DefaultHttpClient(HttpConfig config) {
 
         // 补充默认值信息
@@ -81,7 +83,7 @@ public class DefaultHttpClient {
     }
 
 
-    public <T extends ByteEntity> T execute(String url, String httpMethod, RequestHttpEntity entity, HttpClientResponseHandler<T> responseHandler) throws IOException {
+    public <T extends ByteResponse> T execute(String url, String httpMethod, RequestHttpEntity entity, HttpClientResponseHandler<T> responseHandler) throws IOException {
         // 构造请求信息
         HttpUriRequestBase request = RequestHttpBuilder.build(url, httpMethod, entity);
         // 执行请求

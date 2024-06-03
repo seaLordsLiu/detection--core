@@ -1,6 +1,4 @@
-package org.sealord.http.wrapper;
-
-import org.springframework.lang.NonNull;
+package org.sealord;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,10 +8,10 @@ import javax.servlet.http.HttpServletRequest;
  * @author liu xw
  * @since 2024 05-07
  */
-public interface PostBodyRequestWrapper extends HttpServletRequest {
+public interface HttpServletRequestBodyWrapper extends HttpServletRequest {
 
     /**
      * 获取body内容信息
      */
-    @NonNull byte[] getBody();
+    byte[] bodyInfo();
 }

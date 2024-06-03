@@ -6,6 +6,7 @@ import org.apache.hc.core5.http.io.entity.NullEntity;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Objects;
  * @author liu xw
  * @since 2024 04-19
  */
-public class ByteEntity implements Serializable {
+public class ByteResponse implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,7 +29,7 @@ public class ByteEntity implements Serializable {
     private final byte[] responseBytes;
 
 
-    public ByteEntity(Integer code, String data) {
+    public ByteResponse(Integer code, String data) {
         this.code = code;
         this.responseBytes = Objects.isNull(data) ? new byte[]{} : data.getBytes();
     }
@@ -38,7 +39,7 @@ public class ByteEntity implements Serializable {
      *             {@link org.apache.hc.core5.http.HttpStatus}
      * @param entity 请求体内容
      */
-    public ByteEntity(int code, HttpEntity entity) {
+    public ByteResponse(int code, HttpEntity entity) {
         this.code = code;
         if (entity == null || entity instanceof NullEntity){
             this.responseBytes = null;
@@ -57,5 +58,13 @@ public class ByteEntity implements Serializable {
 
     public byte[] getResponseBytes() {
         return responseBytes;
+    }
+
+    @Override
+    public String toString() {
+        return "ByteEntity{" +
+                "code=" + code +
+                ", responseBytes=" + new String(getResponseBytes(), StandardCharsets.UTF_8) +
+                '}';
     }
 }

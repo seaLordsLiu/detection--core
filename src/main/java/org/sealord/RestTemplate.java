@@ -3,6 +3,7 @@ package org.sealord;
 import org.apache.hc.core5.http.*;
 import org.apache.hc.core5.http.io.entity.NullEntity;
 import org.apache.hc.core5.http.message.BasicHeader;
+import org.sealord.http.HttpConfig;
 import org.sealord.http.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,8 +13,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * 默认客户端实现
@@ -27,10 +26,10 @@ public class RestTemplate {
     /**
      * 执行客户端
      */
-    private final DefaultHttpClient HTTP_CLIENT;
+    private final DefaultHttpClient httpClient;
 
-    public RestTemplate(DefaultHttpClient HTTP_CLIENT) {
-        this.HTTP_CLIENT = HTTP_CLIENT;
+    public RestTemplate(HttpConfig config) {
+        this.httpClient = new DefaultHttpClient(config);
     }
 
     /**
@@ -39,7 +38,7 @@ public class RestTemplate {
      * @param headers 请求头
      * @param body 请求体
      */
-    public ByteEntity postJson(String url, Map<String, Object> headers, Object body) {
+    public ByteResponse postJson(String url, Map<String, Object> headers, Object body) {
         if (Objects.isNull(headers) || headers.equals(Collections.emptyMap())) {
             headers = new HashMap<>();
         }
@@ -54,7 +53,7 @@ public class RestTemplate {
      * @param headers 请求头
      * @param body 请求BODY
      */
-    private ByteEntity execute(String url, String method, Map<String, Object> headers, Object body) {
+    private ByteResponse execute(String url, String method, Map<String, Object> headers, Object body) {
         RequestHttpEntity entity = new RequestHttpEntity(body);
         headers.entrySet().stream().map(e -> new BasicHeader(e.getKey(), e.getValue())).forEach(entity::addHeader);
         return execute(url, method, entity);
@@ -71,10 +70,10 @@ public class RestTemplate {
      * @param method 请求方法
      * @param entity 实体类信息
      */
-    private ByteEntity execute(String url, String method, RequestHttpEntity entity) {
+    private ByteResponse execute(String url, String method, RequestHttpEntity entity) {
         try {
             // 执行结果
-            return HTTP_CLIENT.execute(url, method, entity, response -> new ByteEntity(HttpStatus.SC_OK, response.getEntity()));
+            return httpClient.execute(url, method, entity, response -> new ByteResponse(HttpStatus.SC_OK, response.getEntity()));
         }catch (IOException e){
             int HttpSt;
             if (e instanceof ConnectionRequestTimeoutException){
@@ -83,7 +82,7 @@ public class RestTemplate {
                 HttpSt = HttpStatus.SC_SERVER_ERROR;
             }
             log.error("execute url: [{}]. method: [{}]. httpStatus: {}. msg: {}", url, method, HttpSt, e.getMessage(), e);
-            return new ByteEntity(HttpSt, NullEntity.INSTANCE);
+            return new ByteResponse(HttpSt, NullEntity.INSTANCE);
         }
     }
 
@@ -91,6 +90,6 @@ public class RestTemplate {
      * 获取
      */
     public static RestTemplate of(HttpConfig config){
-        return new RestTemplate(new DefaultHttpClient(config));
+        return new RestTemplate(config);
     }
 }
