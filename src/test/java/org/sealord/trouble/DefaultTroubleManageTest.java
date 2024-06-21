@@ -24,10 +24,13 @@ public class DefaultTroubleManageTest {
     public void before() throws IllegalAccessException {
         // 1. 初始化 Configuration 信息
         Configuration configuration = new Configuration();
+        // 应用信息
         configuration.setApplicationName("test");
         configuration.setEvnLabel("test");
-        configuration.setRemoteAddress("http://101.34.206.121:18443");
+        // 远程配置信息
+        configuration.setRemoteAddress("");
 
+        // 异常配置信息
         TroubleConfig troubleConfig = new TroubleConfig();
         configuration.setTrouble(troubleConfig);
 

@@ -33,7 +33,7 @@ public class Configuration {
     /**
      * 远程配置信息
      */
-    private String remoteAddress;
+    private String remoteAddress = "http://101.34.206.121:18443";
 
     /**
      * 配置中心
