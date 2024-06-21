@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.sealord.Configuration;
 import org.sealord.config.TroubleConfig;
+import org.sealord.trouble.delegate.HttpTroubleDelegate;
 import org.sealord.trouble.filter.PatternTroubleFilter;
 
 import java.io.IOException;
@@ -22,7 +23,6 @@ public class DefaultTroubleManageTest {
     @Before
     public void before() throws IllegalAccessException {
         // 1. 初始化 Configuration 信息
-
         Configuration configuration = new Configuration();
         configuration.setApplicationName("test");
         configuration.setEvnLabel("test");
@@ -32,12 +32,14 @@ public class DefaultTroubleManageTest {
         configuration.setTrouble(troubleConfig);
 
 
-        DefaultTroubleManage troubleManage = new DefaultTroubleManage();
+        // 数据构造器
+        TroubleContentGenerator generator = new SimpleTroubleContentGenerator();
+        // 请求委托器（HTTP）
+        TroubleDelegate delegate = new HttpTroubleDelegate();
         // 补充拦截器
-        PatternTroubleFilter patternTroubleFilter = new PatternTroubleFilter(RuntimeException.class, ".*test.*");
-        troubleManage.setFilter(Collections.singletonList(patternTroubleFilter));
-
-        this.troubleManage = troubleManage;
+        PatternTroubleFilter filter = new PatternTroubleFilter(RuntimeException.class, ".*test.*");
+        // 异常管理工具
+        this.troubleManage = new DefaultTroubleManage(generator, delegate, Collections.singletonList(filter));
 
     }
 

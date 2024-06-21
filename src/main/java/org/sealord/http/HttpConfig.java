@@ -30,13 +30,13 @@ public class HttpConfig implements Serializable {
      * 连接池最大连接数
      * 默认值：20
      */
-    private int maxTotal = 100;
+    private int maxTotal = 50;
 
     /**
      * 每个路由最大连接数
      * 默认值：2
      */
-    private int maxPreRoute = 100;
+    private int maxPreRoute = 50;
 
     /**
      * 连接存活时长：秒

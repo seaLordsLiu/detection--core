@@ -33,6 +33,12 @@ public class DefaultHttpClient {
      */
     private final CloseableHttpClient httpClient;
 
+
+    /**
+     * 状态监控
+     */
+    private ConnectionManagerStateTracker stateTracker;
+
     /**
      * 初始化客http客户端
      * @param config 配置信息
@@ -69,17 +75,25 @@ public class DefaultHttpClient {
                 .evictIdleConnections(TimeValue.ofMilliseconds(config.getConnectionTimeToLive()))
                 .build();
 
+
         // 添加监控线程，创建一个定时线程池
+        this.stateTracker = new LogConnectionManagerStateTracker();
         ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
-        // 每隔1s打印连接池信息
+        // 每分钟执行一次
         executor.scheduleAtFixedRate(() -> {
             // 关闭过期的
             connectionManager.closeExpired();
             // 获取所有路由的连接池状态
             PoolStats totalStats = connectionManager.getTotalStats();
-            log.debug("httpClient time  " + LocalDateTime.now() + " Total status:" + totalStats.toString());
-            System.out.println();
+            try {
+                stateTracker.tracker(totalStats);
+            }catch (Exception e){
+                log.error("tracker execute error, {}", e.getMessage(), e);
+            }
         }, 0, 1, TimeUnit.MINUTES);
+
+
+
     }
 
 
