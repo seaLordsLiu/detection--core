@@ -95,7 +95,7 @@ public class SimpleTroubleContentGenerator implements TroubleContentGenerator {
         if (contentType.contains(ContentType.APPLICATION_FORM_URLENCODED.getMimeType())) {
             Map<String, String[]> parameterMap = request.getParameterMap();
             // 构造参数信息
-            body = JacksonUtils.toJson(parameterMap.toString());
+            body = JacksonUtils.toJson(parameterMap);
         }
 
         // 请求体, 但 HttpServletRequest 读取的是流，并且只能读取一次, 所以会读取失败, 需要自定义读取组件
